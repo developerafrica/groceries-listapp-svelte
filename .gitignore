@@ -1,0 +1,12 @@
+/node_modules/
+/public/build/
+
+.DS_Store
+
+
+gls-cordova-v1.0.0/.DS_Store
+
+gls-cordova-v1.0.0/node_modules/
+
+gls-cordova-v1.0.0/plugins/
+gls-cordova-v1.0.0/platforms/

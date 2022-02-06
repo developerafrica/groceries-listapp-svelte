@@ -1,0 +1,24 @@
+{
+  "name": "app.netlify.bssy",
+  "displayName": "BSSY",
+  "version": "1.0.1",
+  "description": "luanar application timetable for bssy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "peter butao",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "cordova-android": "^9.1.0",
+    "cordova-plugin-whitelist": "^1.3.4"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {}
+    }
+  }
+}

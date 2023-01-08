@@ -1,3 +1,4 @@
+
 html, body {
 	position: relative;
 	width: 100%;
@@ -45,19 +46,6 @@ input:disabled {
 }
 
 button {
-	color: #333;
-	background-color: #f4f4f4;
 	outline: none;
 }
 
-button:disabled {
-	color: #999;
-}
-
-button:not(:disabled):active {
-	background-color: #ddd;
-}
-
-button:focus {
-	border-color: #666;
-}

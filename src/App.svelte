@@ -1,9 +1,20 @@
 <script>
 	import Router, {link} from "svelte-spa-router";
 	import Home from "./routes/index.svelte";
+    import Developerafricamw from "./components/developerafricamw.svelte"
+    import {menustore} from "./stores/stores"
 
 
 	$: open = false;
+    $: if (open == true) {
+        $menustore = true
+    }
+
+    $: if (open == false) {
+        $menustore = false
+    }
+
+  
 </script>
 <Router routes={{
 	"/":Home
@@ -21,18 +32,32 @@
               </a>        
             </div>
 
-            <div on:click={() => {open = !open}} class="menu">
-                <div class="line-1"></div>
-                <div class="line-2"></div>
-            </div>           
+            <button on:click={()=>{
+                open = !open
+               
+
+            }}  class="menu">
+                <div class:menucolor={open} class="line-1"></div>
+                <div class:menucolor={open} class="line-2"></div>
+            </button>           
 
 
-            <div class:open={open}  on:click={() => {open = !open}} class="nav-bar">
+            <div class:open={open}   class="nav-bar">
                 <ul  class="navlist">
-                    <li><a href="https://github.com/Peterbutao/luanar-site-svelte.git">GET INVOLVED</a></li>
-                    <li><a href="https://github.com/Peterbutao/luanar-site-svelte.git">DOCS</a></li>
-                    <li><a href="https://github.com/Peterbutao/luanar-site-svelte.git/licence">LICENCE</a></li>
-                    <li><a href="tel://0880164455">CONTACT</a></li>            
+                    <li>
+                        <a href="/help">HELP &rarr;</a>
+                        <p>read brief instruction on app usage</p>
+                    </li>
+                    <li>
+                        <a href="https://github.com/Peterbutao/luanar-site-svelte.git">GET INVOLVED AND CONTRIBUTE  &rarr;</a>
+                        <p>make contributions to our github project</p>
+                    </li>
+                    <li>
+                        <a href="tel://0880164455">CONTACT DEVELOPER AFRICA MW  &rarr;</a>
+                        
+                        <Developerafricamw />
+                    </li>
+                    <li><a href="/assets/businesscard.png" download="developerafricamw business card">DOWNLOAD OUR BUSINESS CARD</a></li>           
 
                 </ul>
             </div>
@@ -48,9 +73,15 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        background: #F7FDF7;
     }
     
     :root{
+        //v2
+        --gn: #113C11;
+        --yl: #F5BF00;
+        --dyl: hsl(47, 100%, 30%);
+        --wt: white;
         //new
         --dbc: #133F4D;
         --lbc: #2699FB;
@@ -81,30 +112,36 @@
     }
     #layout{
         .nav-one{
-            z-index: 80;
+            z-index: 9;
             position: fixed;
             width: 100%;
             top: 0;
             left: 0;
             
             .nv{
-                padding: 30px 0;
-                padding-bottom: 40px;
-                box-shadow: #0000002c 0px 3px 11px 0px;
+                padding: 10px 0;
+                padding-bottom: 10vh;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                background: var(--dbc);
+                background: linear-gradient(var(--gn) 0, rgba(255, 255, 255, 0.604) 100%);
                 .menu{
-                    padding: 20px 10px;
+                    padding: 15px 20px ;
                     position: relative;
-                    z-index: 99;
+                    z-index: 999;
+                    border: none;
+                    background: none;
+
                     div{
-                        width: 20px;
+                        width: 23px;
                         height: 3px;
-                        background: var(--lc);
-                     
+                        background: var(--wt);
+                        
                     }
+                     .menucolor{
+                         background: var(--tc);
+                         
+                     }
                     .line-2{
                         margin: 5px 0px;
                         width: 12px;
@@ -122,6 +159,8 @@
                         h1{
                             padding: 0px 15px;
                             @include font(var(--lc), 1rem, 500);  
+                            font-weight: 490 !important;
+                            letter-spacing: 1.3px;
                         }
                     }
                 }
@@ -132,7 +171,7 @@
                     pointer-events: all !important;
                 }
                 .nav-bar{
-                    z-index: 100;
+                    z-index: 100 !important;
                     position: fixed;
                     top: 0;
                     right: 0;
@@ -148,29 +187,36 @@
                     
                         background: var(--fb);
                         height: 100vh;
-                        width: 80%;
+                        width: 100%;
                         
                     }
                     ul{
                         margin: 0;
-                        padding-top: 50vh;
+                        padding: 10px;
+                        padding-top: 5vh;
+                        li:nth-child(4){
+                            text-align: center;
+                            a{
+                                border: var(--gn) 1px solid;
+                                display: block;
+                                padding: 20px;
+                                width: 80%;
+                                border-radius: 5px;
+                                margin: auto;
+                            }
+                        }
                         li{
                             list-style: none;
-                            padding: 20px 10px;
+                            padding: 30px 10px 0 10px ;
                             a{
                                 text-decoration: none;
-                                @include font(var(--tc), 0.95rem, 500);
-                                
-                                span{
-                                    padding: 0px 5px;
-                                    svg{
-                                        filter: grayscale(50%);
-                                    }
-                                }
-                                
+                                @include font(var(--lbc), 0.8rem, 750);
+                                                               
                             }
-                            &:hover{
-                                background: #2699fb;
+                            p{
+                                @include font(var(--tc), 0.8rem, 500);
+                                line-height: 1;
+                                                               
                             }
                         }
                     }

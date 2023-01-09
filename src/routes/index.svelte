@@ -9,16 +9,14 @@
      import {menustore} from "../stores/stores"
     
     class GroceriesObj{
-        constructor(title,category,quantity,price, src, dur,img) {
+        constructor(title,quantity,price,img) {
             this.id = `${this.uuid()}-${this.uuid()}`;
             this.date = this.date();
             //params
             this.title = title.toUpperCase();
-            this.category = category;
             this.quantity = quantity;
             this.price = price;
-            this.source = src;
-            this.duration= `${dur} months`;
+            
 
             //calc & img
             this.total_price = quantity * price;
@@ -92,11 +90,8 @@
     
     //input bind
     let nm = "";
-    let ct = "";
     let qn = 1;
     let pr = 0;
-    let src = "";
-    let dur = "";
 
     const key =  "BUTAO-GLA-V1.0.0";
     
@@ -120,10 +115,7 @@
     
     function submit(e){
         e.preventDefault();
-        
-        balanceFunc();
-
-        const data =  new GroceriesObj(nm,ct,qn,pr, src,dur,"img.png");
+        const data =  new GroceriesObj(nm,qn,pr,"img.png");
         
         if (nm == "" ){
             error = true
@@ -169,22 +161,9 @@
     $: total = listData.reduce((a,b)=>{
         return a + b.total_price
     },0);
+
     let budget = "";
-    $: balance = "";
-
-    function balanceFunc(){
-        if(budget == ""){
-            budget = 0
-        }
-        balance = budget - total;
-        console.log({balance})
-    };
-
-
-    console.log({balance})
-  
-
-
+    $: balance = (budget !== "")? (budget - total) : 0;
 
 </script>
 <article>
@@ -193,10 +172,10 @@
         <div class="screen">
             <table>
                 <tbody>
-                    <tr> <td><h1>BUDGET</h1></td> <td><p style="color: var(--dyl)">{budget}.00</p></td>  </tr>
+                    <tr> <td><h1>BUDGET</h1></td> <td><p style="color: var(--dyl)">{budget}</p></td>  </tr>
                     
                     <hr>
-                    <tr> <td><h1>BALANCE</h1></td> <td><p style="color: var(--rc)">{balance}.00</p></td></tr>
+                    <tr> <td><h1>BALANCE</h1></td> <td><p style="color: var(--rc)">{balance}</p></td></tr>
                     <tr> <td><h1>TOTAL</h1></td> <td><p style="color: var(--grc)">{total}</p></td></tr>
                     <tr> <td><h1>ITEMS</h1></td> <td><p>+ {items}</p></td></tr>  
                     <tr> <td></td> <td class="button"><button on:click={()=>{budgetToggle = !budgetToggle}} >ADD BUDGET</button></td></tr>              
@@ -234,32 +213,7 @@
                              <input bind:value={pr} placeholder="PRICE" type="number">
                         </div>
 
-                        <div class="source"> 
-                            <label for="source">SOURCE // SHOP OF PURCHASE </label>
-                             <input bind:value={src} placeholder="SOURCE" type="text">
-                        </div>
-                        
-
-                        <div class="duration">                             
-                             <label for="duration">DURATION</label>
-                             <select bind:value={dur} name="duration" >
-                                <option value="1">1 month</option>
-                                <option value="2">2 months</option>
-                                <option value="3">3 months</option>
-                                <option value="4">4 months</option>
-                                <option value="5">5 months</option>
-                                <option value="6">6 months</option>
-                            </select>
-                        </div>
-
-                        <div class="category">                             
-                             <label for="catergory">CATERGORY</label>
-                             <select bind:value={ct} name="catergory" >
-                                <option value="daily">daily</option>
-                                <option value="cosmetics">cosmetics</option>
-                                <option value="kitchen">kitchen</option>
-                            </select>
-                        </div>
+                     
 
                         <div class="button"> <p on:click={submit} >SUBMIT</p>  </div>
                     </div>
@@ -272,11 +226,6 @@
 
         <form  class:toggle={budgetToggle} >
             <div class="frm">
-                <div on:click={()=>{budgetToggle = !budgetToggle}} class="removebudget">
-                    <p>close</p>
-                      
-
-                </div>
                 <div class:trueerror={error} class="error">
                     <p>
                         error ! // fields cannot be empty
@@ -292,9 +241,12 @@
                         </div>
 
 
-                        <div class="button"> <p on:click={balanceFunc} >SUBMIT</p>  </div>
                     </div>
                 </div>
+                
+                <button on:click={()=>{budgetToggle = !budgetToggle}} class="removebudget">
+                    <p>DONE</p>                   
+                </button>
             </div>
         </form>
     </div>
@@ -442,12 +394,13 @@
                 text-align: end;
                 .removebudget{
                     margin: 10px 0;
-                    width: 20%;
-                    background: red;
+                    width: 100%;
+                    border: none;
+                    background: var(--yl);
+                    padding: 5px 15px;
+                    border-radius: 5px;
                     p{
-                        padding: 10px 15px;
-                        box-shadow: #00000083 0px 5px 11px 4px;
-                        @include font(var(--lc), 0.87rem, 500);
+                        @include font(var(--lc), 0.87rem, 600);
 
                     }
                   
@@ -462,12 +415,12 @@
                     margin:10px 0;
                     
                     padding: 3px 8px;
-
+                    text-align: center;
                     transition:1s all ease-in-out;
                     opacity: 0;
                     pointer-events:none;
                     p{
-                        @include font(var(--lc), 0.87rem, 500);
+                        @include font(var(--wt), 0.87rem, 500);
                     }
                 }
                 .fields{
@@ -475,7 +428,7 @@
                         div{
                             padding: 5px 0 ;
                             label{
-                                @include font(var(--dyl), 0.85rem, 750);
+                                @include font(var(--tc), 0.85rem, 750);
                                 padding: 5px;
                                 
                             }

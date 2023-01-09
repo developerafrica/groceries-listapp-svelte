@@ -82,23 +82,14 @@
         --yl: #F5BF00;
         --dyl: hsl(47, 100%, 30%);
         --wt: white;
+        --rc: red;
         //new
         --dbc: #133F4D;
         --lbc: #2699FB;
         --fbc: #E3ECF5;
-        --gc: #F5F5F5;
-        --lc:seashell;
-        --rc:red;
-        --grc: hsl(120deg 100% 18%);
         --tc:hsl(0, 0%, 25%);
         
-        //old
-        --bc:hsl(0, 0%, 95%);
         --nv:#133f4d;
-        --bl:#2699fb;
-        --fb:#EBF1F6;
-        --fm: #d3dee7;
-        --tbc: #d3dee7;
     }
    
     @mixin font($c, $s, $w) {
@@ -119,7 +110,7 @@
             left: 0;
             
             .nv{
-                padding: 10px 0;
+
                 padding-bottom: 10vh;
                 display: flex;
                 align-items: center;
@@ -158,7 +149,7 @@
                         text-decoration: none;
                         h1{
                             padding: 0px 15px;
-                            @include font(var(--lc), 1rem, 500);  
+                            @include font(var(--wt), 1rem, 500);  
                             font-weight: 490 !important;
                             letter-spacing: 1.3px;
                         }

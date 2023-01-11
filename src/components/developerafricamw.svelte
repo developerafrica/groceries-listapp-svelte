@@ -52,7 +52,6 @@
 
     }
     article{
-        padding: 10px;
         .art-devamw{
             header{
                 padding: 0 10px;

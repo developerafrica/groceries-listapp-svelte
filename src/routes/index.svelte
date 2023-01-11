@@ -94,8 +94,10 @@
     let pr = 0;
 
     const key =  "BUTAO-GLA-V1.0.0";
+    const budgetKey =  "BUTAO-GLA-V1.0.0-BUDGET";
     
     let listData = [];
+    let budgetData = 0;
 
 
 
@@ -106,10 +108,37 @@
         
         listData = [...newdata]                     
     }
+    if(localStorage.getItem(budgetKey) !== null){
+        const localbudgetdata  = localStorage.getItem(budgetKey);
+        const newdata = JSON.parse(localbudgetdata) 
+        
+        budgetData = newdata                     
+    }
 
     
     function dispatchadd(e){
         toggle = e.detail
+    }
+
+    function budgetFunc(){
+        budgetData = budget == ""?0:budgetData;
+        if (budget !== ""){ 
+    
+          
+            
+            if(localStorage.getItem(budgetKey) === null) {
+                budgetData = budget
+                localStorage.setItem(budgetKey, JSON.stringify(budgetData))
+            }else{
+                budgetData = JSON.parse(localStorage.getItem(budgetKey))
+                budgetData = budget
+                localStorage.setItem(budgetKey, JSON.stringify(budgetData))
+            }
+
+            budgetToggle = !budgetToggle
+            
+        };
+
     }
   
     
@@ -163,7 +192,8 @@
     },0);
 
     let budget = "";
-    $: balance = (budget !== "")? (budget - total) : 0;
+    $: balance = (budgetData !== "")? (budgetData - total) : 0;
+    $: extra = balance < 0 ? "EXTRA" : "BALANCE"
 
 </script>
 <article>
@@ -172,11 +202,10 @@
         <div class="screen">
             <table>
                 <tbody>
-                    <tr> <td><h1>BUDGET</h1></td> <td><p style="color: var(--dyl)">{budget}</p></td>  </tr>
-                    
+                    <tr> <td><h1>BUDGET</h1></td> <td><p style="color: var(--dyl)">{budgetData}</p></td></tr>    
                     <hr>
-                    <tr> <td><h1>BALANCE</h1></td> <td><p style="color: var(--rc)">{balance}</p></td></tr>
-                    <tr> <td><h1>TOTAL</h1></td> <td><p style="color: var(--grc)">{total}</p></td></tr>
+                    <tr> <td><h1>{extra}</h1></td> <td><p style="color: var(--rc)">{balance}</p></td></tr>
+                    <tr> <td><h1>TOTAL</h1></td> <td><p style="color: var(--gn)">{total}</p></td></tr>
                     <tr> <td><h1>ITEMS</h1></td> <td><p>+ {items}</p></td></tr>  
                     <tr> <td></td> <td class="button"><button on:click={()=>{budgetToggle = !budgetToggle}} >ADD BUDGET</button></td></tr>              
                 </tbody>
@@ -215,7 +244,7 @@
 
                      
 
-                        <div class="button"> <p on:click={submit} >SUBMIT</p>  </div>
+                        <div class="button"> <button on:click={submit} >SUBMIT</button>  </div>
                     </div>
                 </div>
             </div>
@@ -244,7 +273,7 @@
                     </div>
                 </div>
                 
-                <button on:click={()=>{budgetToggle = !budgetToggle}} class="removebudget">
+                <button on:click={budgetFunc} class="removebudget">
                     <p>DONE</p>                   
                 </button>
             </div>
@@ -264,11 +293,11 @@
         <div class="footer">
             <footer>
 
-                <div class:grey={toggle} on:click={()=>{toggle = !toggle}} class="initialadd">
+                <button class:grey={toggle} on:click={()=>{toggle = !toggle}} class="initialadd">
                     <div class="initadd">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 30 30"><defs><clipPath id="a"><rect width="16" height="15.999" fill="none"/></clipPath></defs><g transform="translate(-321 -292)"><rect width="30" height="30" rx="15" transform="translate(321 292)" fill="#ffffff"/><g transform="translate(328 299)" clip-path="url(#a)"><path d="M-4613,15V9h-6a1,1,0,0,1-1-1,1,1,0,0,1,1-1h6V1a1,1,0,0,1,1-1,1,1,0,0,1,1,1V7h6a1,1,0,0,1,1,1,1,1,0,0,1-1,1h-6v6a1,1,0,0,1-1,1A1,1,0,0,1-4613,15Z" transform="translate(4620)" fill="#000"/></g></g></svg>
                     </div>
-                </div>
+                </button>
             </footer>
         </div>
     {/if}
@@ -410,6 +439,9 @@
                     margin: 10px 0;
                     border: none;
                     background: red;
+                    border-radius: 5px;
+                    padding: 5px;
+                    @include font(var(--wt), 0.87rem, 500);
                 }
                 .error{
                     margin:10px 0;
@@ -432,7 +464,7 @@
                                 padding: 5px;
                                 
                             }
-                            p{
+                            button{
                                 background: var(--yl) ;
                                 padding:15px;
                                 text-align: center;
@@ -441,14 +473,6 @@
                                 border-radius: 5px;
 
 
-                            }
-                            select{
-                                border: black 1px solid;
-                                width: 100%;
-                                position: relative;
-                                padding: 13px;
-                                border-radius: 5px;
-                                
                             }
                             input{
                                 border-radius: 5px;
@@ -482,15 +506,19 @@
                 bottom: 0;
                 width: 100%;
                 .initialadd{
-                    border: black solid 1px;
-                    background: var(--wt);
-                    margin: 10px 30px;
-                    border-radius: 5px;
+                    width: 100%;
+                    background: none;
+                    border: none;
+                    margin: 0 0 5px 0;
                     .initadd{
+                        background: var(--wt);
+                        border-radius: 5px;
+                        padding: 10px;
+                        border: black solid 1px;
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        padding: 10px;
+                        
 
                         
                     }

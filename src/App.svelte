@@ -44,12 +44,12 @@
 
             <div class:open={open}   class="nav-bar">
                 <ul  class="navlist">
-                    <li>
+                    <!-- <li>
                         <a href="/help">HELP &rarr;</a>
                         <p>read brief instruction on app usage</p>
-                    </li>
+                    </li> -->
                     <li>
-                        <a href="https://github.com/Peterbutao/luanar-site-svelte.git">GET INVOLVED AND CONTRIBUTE  &rarr;</a>
+                        <a href="https://github.com/developerafrica/groceries-listapp-svelte">GET INVOLVED AND CONTRIBUTE  &rarr;</a>
                         <p>make contributions to our github project</p>
                     </li>
                     <li>
@@ -176,7 +176,7 @@
 
                     .navlist{
                     
-                        background: var(--fb);
+                        background: var(--wt);
                         height: 100vh;
                         width: 100%;
                         
@@ -185,7 +185,7 @@
                         margin: 0;
                         padding: 10px;
                         padding-top: 5vh;
-                        li:nth-child(4){
+                        li:nth-child(3){
                             text-align: center;
                             a{
                                 border: var(--gn) 1px solid;
@@ -202,10 +202,12 @@
                             a{
                                 text-decoration: none;
                                 @include font(var(--lbc), 0.8rem, 750);
-                                                               
+                                padding: 0 15px;
+                                
                             }
                             p{
                                 @include font(var(--tc), 0.8rem, 500);
+                                padding: 0 20px;
                                 line-height: 1;
                                                                
                             }

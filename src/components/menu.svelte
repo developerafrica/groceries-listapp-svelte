@@ -1,10 +1,17 @@
 <script>
     import Developerafricamw from "./developerafricamw.svelte"
+    import Help from "./help.svelte"
+    $: helpToggle = false 
 </script>
 <ul  class="navlist">
     <li>
-        <a href="/help">HELP &rarr;</a>
+        <button on:click={()=>{helpToggle = !helpToggle}}>HELP &rarr;</button>
         <p>read brief instruction on app usage</p>
+        {#if helpToggle}
+        <section>
+            <Help />
+        </section>
+        {/if}
     </li>
     <li>
         <a href="https://github.com/developerafrica/groceries-listapp-svelte">GET INVOLVED AND CONTRIBUTE  &rarr;</a>
@@ -49,6 +56,10 @@
         li{
             list-style: none;
             padding: 30px 10px 0 10px ;
+            button{
+                background: none;
+            }
+            button,
             a{
                 text-decoration: none;
                 @include font(var(--lbc), 0.8rem, 750);

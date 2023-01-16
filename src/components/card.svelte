@@ -50,11 +50,7 @@
         {#if toggle == true}
         <div class="toggle">
             <div class="tg">
-                <div class="category">
-                    <p>
-                        {dt.category.toUpperCase()}
-                    </p>
-                </div>
+               
                 <div class="numdetails">
                     <table>
                         <tbody>
